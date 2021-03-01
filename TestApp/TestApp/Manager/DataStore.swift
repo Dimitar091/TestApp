@@ -37,4 +37,46 @@ class DataStore {
             }
         }
     }
+    func setUserData(user: User, completion: @escaping (_ success: Bool,_ error: Error?)-> Void) {
+            guard let uid = user.id else {
+                completion(false,nil)
+                return
+            }
+            do {
+                let usersRef = database.collection("users").document(uid)
+                try usersRef.setData(from: user, completion: { error in
+                    if let loggedInUser = Auth.auth().currentUser, loggedInUser.uid == uid {
+                        self.localUser = user
+                    }
+                    if let error = error {
+                        completion(false, error)
+                            return
+                    }
+                    completion(true, nil)
+                })
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+    func setUserData(user: User, completion: @escaping (_ success: Bool,_ error: Error?)-> Void) {
+            guard let uid = user.id else {
+                completion(false,nil)
+                return
+            }
+            do {
+                let usersRef = database.collection("users").document(uid)
+                try usersRef.setData(from: user, completion: { error in
+                    if let loggedInUser = Auth.auth().currentUser, loggedInUser.uid == uid {
+                        self.localUser = user
+                    }
+                    if let error = error {
+                        completion(false, error)
+                            return
+                    }
+                    completion(true, nil)
+                })
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
 }

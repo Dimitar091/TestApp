@@ -41,6 +41,8 @@ class ViewController: UIViewController {
             
             if let user = user {
                 DataStore.shared.localUser = user
+                self.continueToHomeScreen()
+                
             }
         }
     }
@@ -60,6 +62,9 @@ class ViewController: UIViewController {
                 self.getLocalUserData(uid: user.uid)
             }
         }
+    }
+    func continueToHomeScreen() {
+        performSegue(withIdentifier: "HomeView", sender: nil)
     }
 
     @IBAction func onFacebook(_ sender: Any) {

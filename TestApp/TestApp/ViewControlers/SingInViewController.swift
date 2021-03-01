@@ -67,6 +67,7 @@ class SingInViewController: UIViewController {
             
             if let user = user {
                 DataStore.shared.localUser = user
+                self.continuteToHome()
                 return
             }
         }
@@ -80,6 +81,10 @@ class SingInViewController: UIViewController {
     }
     @IBAction func onCreateNewAcc(_ sender: Any) {
         performSegue(withIdentifier: "newAcc", sender: nil)
+    }
+    func continuteToHome() {
+        performSegue(withIdentifier: "HomeView", sender: nil)
+        navigationController?.popToRootViewController(animated: false)
     }
     
 }
